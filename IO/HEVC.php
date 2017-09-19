@@ -20,6 +20,7 @@ class IO_HEVC {
         $this->naluList = [];
         while ($bit->hasNextData(3)) {
             // start code prefix
+            $bit->byteAlign();
             if ($bit->getUIBits(24) !== 0x000001) {
                 $bit->incrementOffset(-2, 0);
                 continue;
