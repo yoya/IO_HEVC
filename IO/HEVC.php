@@ -57,7 +57,7 @@ class IO_HEVC {
     function parseNALU($bit) {
         $header = $this->parseNALU_Header($bit);
         $nalUnitType = $header["nal_unit_type"];
-        echo "nalUnitType:$nalUnitType\n";
+        // echo "nalUnitType:$nalUnitType\n";
         // Table 7-1  (T-REC-H.265-201612)
         switch ($nalUnitType) {
         case 32: // VPS_NUT
@@ -103,6 +103,10 @@ class IO_HEVC {
         return $unit;
     }
     function dump() {
-        var_dump($this->naluList);
+        foreach ($this->naluList as $nalu) {
+            $type = $nalu[0]["nal_unit_type"];
+            $typeStr = $this->getUnitTypeString($type);
+            echo "$type($typeStr)\n";
+        }
     }
 }
