@@ -46,6 +46,11 @@ class IO_HEVC {
                 continue;
             }
             $nalu = $this->parseNALU($bit);
+            $bit->byteAlign();
+            while ($bit->hasNextData(3) && $bit->getUIBits(24) !== 0x000001) {
+                $bit->incrementOffset(-2, 0);
+            }
+            $bit->incrementOffset(-3, 0);
             $this->naluList[] = $nalu;
         }
     }
