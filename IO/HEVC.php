@@ -10,9 +10,29 @@
 require_once 'IO/Bit.php';
 require_once 'IO/HEVC/ProfleTierLevel.php';
 
+
+
 class IO_HEVC {
     var $_naluList = null;
     var $_hevcdata = null;
+    function getUnitTypeString($type) {
+        static $unitTypeTable = [
+            19 => "IDR_W_RADL",
+            20 => "IDR_N_LP",
+            //
+            32 => "VPS_NUT",
+            33 => "SPS_NUT",
+            34 => "PPS_NUT",
+            //
+            39 => "PREFIX_SEI_NUT",
+            40 => "SUFFIX_SEI_NUT",
+        ];
+        if (isset($unitTypeTable[$type])) {
+            return $unitTypeTable[$type];
+        }
+        return "(unknown)";
+    }
+
     function parse($hevcdata, $opts = array()) {
         $bit = new IO_Bit();
         $bit->input($hevcdata);
