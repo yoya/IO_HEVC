@@ -36,12 +36,7 @@ class IO_HEVC {
             $this->nalList[] = $nal;
         }
     }
-    function parseNALU($bit) {
 
-    }
-
-    function parseNALU_VPS_NUT($bit) {
-    }
     function dump() {
         foreach ($this->nalList as $nal) {
             $header = $nal->header;
