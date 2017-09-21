@@ -39,11 +39,7 @@ class IO_HEVC {
 
     function dump() {
         foreach ($this->nalList as $nal) {
-            $header = $nal->header;
-            $unit = $nal->unit;
-            $type = $header["nal_unit_type"];
-            $typeStr = $nal->getUnitTypeString($type);
-            echo "$type($typeStr)\n";
+            $nal->dump();
         }
     }
 }

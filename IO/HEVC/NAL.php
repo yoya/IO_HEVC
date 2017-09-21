@@ -52,8 +52,15 @@ class IO_HEVC_NAL {
         $header["nuh_temporal_id_plus1"] = $bit->getUIBits(3);
         return $header;
     }
-    static function dump() {
-        
+    function dump() {
+        $header = $this->header;
+        $unit = $this->unit;
+        $type = $header["nal_unit_type"];
+        $typeStr = $this->getUnitTypeString($type);
+        echo "$type($typeStr)\n";
+        if (isset($unit->dump)) {
+            $unit->dump();
+        }
     }
 }
 

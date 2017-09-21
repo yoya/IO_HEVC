@@ -11,6 +11,7 @@ require_once 'IO/HEVC/ProfleTierLevel.php';
 
 class IO_HEVC_NAL_VPS {
     // Table 7-3.2.1  (T-REC-H.265-201612)
+    // video_parameter_set_rbsp
     function parse($bit) {
         $this->vps_video_parameter_set_id = $bit->getUIBits(4);
         $this->vps_base_layer_internal_flag = $bit->getUIBit();
@@ -29,5 +30,8 @@ class IO_HEVC_NAL_VPS {
         if ($vps_sub_layer_ordering_info_present_flag) {
             ;
         }
+    }
+    function dump() {
+        ;
     }
 }
