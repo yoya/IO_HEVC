@@ -3,7 +3,7 @@
 require_once 'IO/Bit.php';
 
 class IO_HEVC_ProfileTierLevel {
-    static function parse($bit, $profilePresentFlag, $maxnumSubLayersMinus1) {
+    function parse($bit, $profilePresentFlag, $maxnumSubLayersMinus1) {
         $profile = [];
         if ($profilePresentFlag) {
         }
