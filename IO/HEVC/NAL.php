@@ -6,6 +6,9 @@
 */
 
 require_once 'IO/HEVC/NAL/VPS.php';
+require_once 'IO/HEVC/NAL/SPS.php';
+require_once 'IO/HEVC/NAL/PPS.php';
+require_once 'IO/HEVC/NAL/Unknown.php';
 
 class IO_HEVC_NAL {
         function getUnitTypeString($type) {
@@ -33,14 +36,17 @@ class IO_HEVC_NAL {
         switch ($nalUnitType) {
         case 32: // VPS_NUT
             $unit = new IO_HEVC_NAL_VPS();
-            $unit->parse($bit);
+            break;
+        case 33: // SPS_NUT
+            $unit = new IO_HEVC_NAL_SPS();
+        case 34: // PPS_NUT
+            $unit = new IO_HEVC_NAL_PPS();
             break;
         default:
-            // case 33: // SPS_NUT
-            // case 34: // PPS_NUT
-            $unit = [];
+            $unit = new IO_HEVC_NAL_Unknown();
             break;
         }
+        $unit->parse($bit);
         $this->header = $header;
         $this->unit = $unit;
     }
