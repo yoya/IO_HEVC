@@ -15,9 +15,15 @@ class IO_HEVC_NAL_SPS {
         $this->dump = new IO_HEVC_Dump();
     }
     function parse($bit) {
-        ;
+        $this->sps_video_parameter_set_id = $bit->getUIBits(4);
+        $this->sps_max_sub_layers_minus1 = $bit->getUIBits(3);
+        $this->sps_temporal_id_nesting_flag = $bit->getUIBit();
+        $this->profile_tier_level = new IO_HEVC_ProfileTierLevel();
+        $this->profile_tier_level->parse($bit, 1, $this->sps_max_sub_layers_minus1);
     }
     function dump() {
-        ;
+        $this->dump->printf($this, "    sps_video_parameter_set_id:%d sps_max_sub_layers_minus1:%d".PHP_EOL);        ;
+        $this->dump->printf($this, "    sps_temporal_id_nesting_flag:%d".PHP_EOL);        ;
+        $this->profile_tier_level->dump();
     }
 }
