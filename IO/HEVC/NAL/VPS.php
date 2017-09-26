@@ -36,6 +36,9 @@ class IO_HEVC_NAL_VPS {
         }
     }
     function dump() {
-        $this->dump->printf($this, "vps_video_parameter_set_id:%d".PHP_EOL);
+        $this->dump->printf($this, "    vps_video_parameter_set_id:%d vps_base_layer_internal_flag:%d".PHP_EOL);
+                $this->dump->printf($this, "    vps_base_layer_available_flag:%d vps_max_layers_minus1:%d".PHP_EOL);
+                $this->dump->printf($this, "    vps_max_sub_layers_minus1:%d vps_temporal_id_nesting_flag:%d".PHP_EOL);
+                $this->profile_tier_level->dump();
     }
 }
