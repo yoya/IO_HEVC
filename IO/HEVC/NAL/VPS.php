@@ -6,7 +6,6 @@
   ref) https://www.itu.int/rec/T-REC-H.265
 */
 
-require_once 'IO/Bit.php';
 require_once 'IO/HEVC/Dump.php';
 require_once 'IO/HEVC/ProfleTierLevel.php';
 
