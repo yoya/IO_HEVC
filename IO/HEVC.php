@@ -7,7 +7,7 @@
  */
 
     
-require_once 'IO/Bit.php';
+require_once 'IO/HEVC/Bit.php';
 require_once 'IO/HEVC/NAL.php';
 
 class IO_HEVC {
@@ -15,7 +15,7 @@ class IO_HEVC {
     var $_hevcdata = null;
 
     function parse($hevcdata, $opts = array()) {
-        $bit = new IO_Bit();
+        $bit = new IO_HEVC_Bit();
         $bit->input($hevcdata);
         $this->_hevcdata = $hevcdata;
         $this->nalList = [];
