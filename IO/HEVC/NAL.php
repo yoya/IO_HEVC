@@ -39,6 +39,7 @@ class IO_HEVC_NAL {
             break;
         case 33: // SPS_NUT
             $unit = new IO_HEVC_NAL_SPS();
+            break;
         case 34: // PPS_NUT
             $unit = new IO_HEVC_NAL_PPS();
             break;
