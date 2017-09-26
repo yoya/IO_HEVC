@@ -5,13 +5,18 @@
   ref) https://www.itu.int/rec/T-REC-H.265
 */
 
+require_once 'IO/HEVC/Dump.php';
+
 require_once 'IO/HEVC/NAL/VPS.php';
 require_once 'IO/HEVC/NAL/SPS.php';
 require_once 'IO/HEVC/NAL/PPS.php';
 require_once 'IO/HEVC/NAL/Unknown.php';
 
 class IO_HEVC_NAL {
-        function getUnitTypeString($type) {
+    function __construct() {
+        $this->dump = new IO_HEVC_Dump();
+    }
+    function getUnitTypeString($type) {
         static $unitTypeTable = [
             19 => "IDR_W_RADL",
             20 => "IDR_N_LP",
@@ -64,7 +69,10 @@ class IO_HEVC_NAL {
         $unit = $this->unit;
         $type = $header["nal_unit_type"];
         $typeStr = $this->getUnitTypeString($type);
-        echo "$type($typeStr)\n";
+        echo "header:".PHP_EOL;
+        $this->dump->printf($header, "    forbidden_zero_bit:%d nal_unit_type:%d($typeStr)".PHP_EOL);
+        $this->dump->printf($header, "    nuh_layer_id:%d nuh_temporal_id_plus1:%d".PHP_EOL);
+        echo "unit:".PHP_EOL;
         if (isset($unit->dump)) {
             $unit->dump();
         }
