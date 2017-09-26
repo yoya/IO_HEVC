@@ -7,13 +7,13 @@ class IO_HEVC_Dump {
             if (preg_match('/(\S+):([^%]*)(%\S+)/', $match , $m)) {
                 $k = $m[1];
                 $f = $m[3];
+                $v = is_array($obj)?$obj[$k]:$obj->$k;
                 if ($f === "%h") {
                     printf($m[1].":".$m[2]);
-                    foreach (str_split($obj[$m[1]]) as $c) {
+                    foreach (str_split($v) as $c) {
                         printf(" %02x", ord($c));
                     }
                 } else {
-                    $v = is_array($obj)?$obj[$k]:$obj->$k;
                     printf($m[1].":".$m[2].$f, $v);
                 }
             } else {
