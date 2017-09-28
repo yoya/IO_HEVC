@@ -1,4 +1,3 @@
-
 <?php
 
 /*
@@ -26,6 +25,16 @@ class IO_HEVC_Bit extends IO_Bit {
         $this->skipEulationPrevention();
         return parent::getUIBit();
     }
+    function getUIBitsEG() { // 0-th order Exp-Golomb
+        $e = 0;
+        while ($this->getUIBit() === 0) { $e++ ; }
+        return pow(2, $e) + parent::getUIBits($e) - 1;
+    }
+    function getSIBitsEG() {
+        $value = $this->getUIBitsEG();
+        if ($value & 1) {
+            return ($value + 1) / 2; // odd number => positive
+        }
+        return - $value / 2; // even number => negative
+    }
 }
-
-
