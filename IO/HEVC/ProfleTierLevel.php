@@ -23,7 +23,7 @@ class IO_HEVC_ProfileTierLevel {
             $this->general_interlaced_source_flag = $bit->getUIBit();
             $this->general_non_packed_constraint_flag = $bit->getUIBit();
             $this->general_frame_only_constraint_flag = $bit->getUIBit();
-2            if (($general_profile_idc === 4) || ($general_profile_compatibility_flag[4]) ||
+            if (($general_profile_idc === 4) || ($general_profile_compatibility_flag[4]) ||
                 ($general_profile_idc === 5) || ($general_profile_compatibility_flag[5]) ||
                 ($general_profile_idc === 6) || ($general_profile_compatibility_flag[6]) ||
                 ($general_profile_idc === 7) || ($general_profile_compatibility_flag[7]) ||
@@ -76,8 +76,6 @@ class IO_HEVC_ProfileTierLevel {
                 }
             }
             $this->general_level_idc = $bit->getUIBits(8);
-            for () {
-            }
         }
     }
     function dump() {
