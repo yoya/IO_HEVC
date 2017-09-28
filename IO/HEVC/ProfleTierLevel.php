@@ -76,23 +76,48 @@ class IO_HEVC_ProfileTierLevel {
                 }
             }
             $this->general_level_idc = $bit->getUIBits(8);
+            $sub_layer_profile_present_flag = array();
+            $sub_layer_level_present_flag = array();
+            for ($i = 0 ; $i < $maxNumSubLayersMinus1 ; $i++) {
+                $sub_layer_profile_present_flag []= $bit->getUIBit();
+                $sub_layer_level_present_flag []= $bit->getUIBit();
+            }
+            $this->sub_layer_profile_present_flag = $sub_layer_profile_present_flag;
+            $this->sub_layer_level_present_flag = $sub_layer_level_present_flag;
+            if (0 < $maxNumSubLayersMinus1) {
+                for ($i = $maxNumSubLayersMinus1; $i < 8; $i++) {
+                    $reserved_zero_2bits = $bit->getUIBits(2);
+                    if ($reserved_zero_2bits !== 0) {
+                        throw new Exception("ERROR: reserved_zero_2bits:$reserved_zero_2bits");
+                    }
+                }
+            }
+            for ($i = 0; $i < $maxNumSubLayersMinus1; $i++ ) {
+                // TODO
+                throw new Exception("ERROR: not implemented yet. 0 < maxNumSubLayersMinus1:$maxNumSubLayersMinus1 ");
+            }
         }
     }
     function dump() {
-        echo "    profile_tier_level:".PHP_EOL;
-        $this->dump->printf($this, "        ( profilePresentFlag:%d maxNumSubLayersMinus1:%d )".PHP_EOL);
-        if ($this->profilePresentFlag) {
+        echo "    profile_tier_level:";
+        $profilePresentFlag = $this->profilePresentFlag;
+        $maxNumSubLayersMinus1 = $this->maxNumSubLayersMinus1;
+        $this->dump->printf($this, " profilePresentFlag:%d maxNumSubLayersMinus1:%d".PHP_EOL);
+        if ($profilePresentFlag) {
             $general_profile_idc = $this->general_profile_idc;
             $this->dump->printf($this, "        general_profile_space:%d general_tier_flag:%d general_profile_idc:%d".PHP_EOL);
             echo "        general_profile_compatibility_flag:";
             $general_profile_compatibility_flag = $this->general_profile_compatibility_flag;
-            foreach ($general_profile_compatibility_flag as $flag) {
-                echo " ".$flag;
+            foreach ($general_profile_compatibility_flag as $i => $flag) {
+                if (($i%8) === 0) {
+                    echo " ";
+                }
+                echo $flag;
             }
             echo PHP_EOL;
             $this->dump->printf($this, "        general_progressive_source_flag:%d general_interlaced_source_flag:%d".PHP_EOL);
-            $this->dump->printf($this, "        general_non_packed_constraint_flag:%d general_frame_only_constraint_flag:%d".PHP_EOL);
-            var_dump($general_profile_idc);
+            $this->dump->printf($this, "        general_non_packed_constraint_flag:%d".PHP_EOL);
+            $this->dump->printf($this, "        general_frame_only_constraint_flag:%d".PHP_EOL);
             if (($general_profile_idc === 4) || ($general_profile_compatibility_flag[4]) ||
                 ($general_profile_idc === 5) || ($general_profile_compatibility_flag[5]) ||
                 ($general_profile_idc === 6) || ($general_profile_compatibility_flag[6]) ||
@@ -120,6 +145,10 @@ class IO_HEVC_ProfileTierLevel {
                 $this->dump->printf($this, "        general_inbld_flag:%d".PHP_EOL);
             }
             $this->dump->printf($this, "        general_level_idc:%d".PHP_EOL);
+            echo "        sub_layer_profile_present_flag, sub_layer_level_present_flag: (count:".$maxNumSubLayersMinus1.")".PHP_EOL;
+            for ($i = 0 ; $i < $maxNumSubLayersMinus1 ; $i++) {
+                echo "            ".$this->sub_layer_profile_present_flag[$i].", ".$this->sub_layer_level_present_flag[$i].PHP_EOL;
+            }
         }
     }
 }
