@@ -5,9 +5,9 @@ class IO_HEVC_ProfileTierLevel {
     function __construct() {
         $this->dump = new IO_HEVC_Dump();
     }
-    function parse($bit, $profilePresentFlag, $maxumSubLayersMinus1) {
+    function parse($bit, $profilePresentFlag, $maxNumSubLayersMinus1) {
         $this->profilePresentFlag = $profilePresentFlag;
-        $this->maxnumSubLayersMinus1 = $maxnumSubLayersMinus1;
+        $this->maxNumSubLayersMinus1 = $maxNumSubLayersMinus1;
         $profile = [];
         if ($profilePresentFlag) {
             $this->general_profile_space = $bit->getUIBits(2);
@@ -82,7 +82,7 @@ class IO_HEVC_ProfileTierLevel {
     }
     function dump() {
         echo "    profile_tier_level:".PHP_EOL;
-        $this->dump->printf($this, "        ( profilePresentFlag:%d maxnumSubLayersMinus1:%d )".PHP_EOL);
+        $this->dump->printf($this, "        ( profilePresentFlag:%d maxNumSubLayersMinus1:%d )".PHP_EOL);
         if ($this->profilePresentFlag) {
             $general_profile_idc = $this->general_profile_idc;
             $this->dump->printf($this, "        general_profile_space:%d general_tier_flag:%d general_profile_idc:%d".PHP_EOL);
