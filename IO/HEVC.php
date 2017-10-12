@@ -27,12 +27,16 @@ class IO_HEVC {
                 continue;
             }
             $nal = new IO_HEVC_NAL();
+            list($baseOffset, $dummy) = $bit->getOffset();
+            $nal->_offset = $baseOffset;
             $nal->parse($bit);
             $bit->byteAlign();
             while ($bit->hasNextData(3) && $bit->getUIBits(24) !== 0x000001) {
                 $bit->incrementOffset(-2, 0);
             }
             $bit->incrementOffset(-3, 0);
+            list($nextOffset, $dummy) = $bit->getOffset();
+            $nal->_length = $nextOffset - $baseOffset;
             $this->nalList[] = $nal;
         }
     }
