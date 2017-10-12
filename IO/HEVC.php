@@ -41,6 +41,24 @@ class IO_HEVC {
         }
     }
 
+    function getNALByType($type) {
+        foreach ($this->nalList as $nal) {
+            $header = $nal->header;
+            if ($header["nal_unit_type"] === $type) {
+                return $nal;
+            }
+        }
+    }
+
+    function getNALRawDataByType($type) {
+        foreach ($this->nalList as $nal) {
+            $header = $nal->header;
+            if ($header["nal_unit_type"] === $type) {
+                return substr($this->_hevcdata, $nal->_offset, $nal->_length);
+            }
+        }
+    }
+
     function dump() {
         foreach ($this->nalList as $nal) {
             $nal->dump();
