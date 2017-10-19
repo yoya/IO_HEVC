@@ -47,7 +47,13 @@ class IO_HEVC {
                 }
                 $bit->incrementOffset(-2, 0);
             }
-            $bit->incrementOffset(-3, 0);
+            if ($bit->hasNextData(3)) {
+                $bit->incrementOffset(-3, 0);
+            } else { // last nalu
+                while ($bit->hasNextData(1)) {
+                    $bit->incrementOffset(1, 0);
+                }
+            }
             list($nextOffset, $dummy) = $bit->getOffset();
             $nal->_length = $nextOffset - $baseOffset;
             $this->nalList[] = $nal;
