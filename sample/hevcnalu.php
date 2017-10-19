@@ -1,6 +1,10 @@
 <?php
 
-require_once('IO/HEVC.php');
+if (is_readable('vendor/autoload.php')) {
+    require 'vendor/autoload.php';
+} else {
+    require_once 'IO/HEVC.php';
+}
 
 $options = getopt("f:t:");
 

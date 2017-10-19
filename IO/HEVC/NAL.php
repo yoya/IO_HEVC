@@ -5,12 +5,11 @@
   ref) https://www.itu.int/rec/T-REC-H.265
 */
 
-require_once 'IO/HEVC/Dump.php';
-
-require_once 'IO/HEVC/NAL/VPS.php';
-require_once 'IO/HEVC/NAL/SPS.php';
-require_once 'IO/HEVC/NAL/PPS.php';
-require_once 'IO/HEVC/NAL/Unknown.php';
+require_once dirname(__FILE__).'/Dump.php';
+require_once dirname(__FILE__).'/NAL/VPS.php';
+require_once dirname(__FILE__).'/NAL/SPS.php';
+require_once dirname(__FILE__).'/NAL/PPS.php';
+require_once dirname(__FILE__).'/NAL/Unknown.php';
 
 class IO_HEVC_NAL {
     function __construct() {

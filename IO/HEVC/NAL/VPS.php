@@ -6,8 +6,8 @@
   ref) https://www.itu.int/rec/T-REC-H.265
 */
 
-require_once 'IO/HEVC/Dump.php';
-require_once 'IO/HEVC/ProfleTierLevel.php';
+require_once dirname(__FILE__).'/../Dump.php';
+require_once dirname(__FILE__).'/../ProfleTierLevel.php';
 
 class IO_HEVC_NAL_VPS {
     // Table 7-3.2.1  (T-REC-H.265-201612)

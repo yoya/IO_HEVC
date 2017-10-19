@@ -6,9 +6,13 @@
   ref) https://www.itu.int/rec/T-REC-H.265
  */
 
-    
-require_once 'IO/HEVC/Bit.php';
-require_once 'IO/HEVC/NAL.php';
+if (is_readable('vendor/autoload.php')) {
+    require 'vendor/autoload.php';
+} else {
+    require_once 'IO/Bit.php';
+}
+require_once dirname(__FILE__).'/HEVC/Bit.php';
+require_once dirname(__FILE__).'/HEVC/NAL.php';
 
 class IO_HEVC {
     var $_nalList = null;

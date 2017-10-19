@@ -5,7 +5,7 @@
   ref) https://www.itu.int/rec/T-REC-H.265
 */
 
-require_once 'IO/HEVC/Dump.php';
+require_once dirname(__FILE__).'/../Dump.php';
 
 class IO_HEVC_NAL_Unknown {
     function __construct() {

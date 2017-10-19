@@ -1,5 +1,7 @@
 <?php
 
+require_once dirname(__FILE__).'/Dump.php';
+
 class IO_HEVC_ProfileTierLevel {
     // 7.3.3 profile_tier_level
     function __construct() {
