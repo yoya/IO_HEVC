@@ -40,4 +40,17 @@ class IO_HEVC_Bit extends IO_Bit {
         }
         return - $value / 2; // even number => negative
     }
+
+    private function getDatum() {
+        parent::byteAlign();
+        $this->skipEulationPrevention();
+        return parent::getData(1);
+    }
+    function getData($length) {
+        $data = "";
+        for ($i = 0 ; ($i < $length) && $this->hasNextData(1) ; $i++) {
+            $data .= $this->getDatum();
+        }
+        return $data;
+    }
 }
