@@ -14,18 +14,18 @@ if (is_readable('vendor/autoload.php')) {
 require_once dirname(__FILE__).'/NAL.php';
 
 class IO_HEVC_Bit extends IO_Bit {
-    private function skipEulationPrevention() {
+    private function skipEmulationPrevention() {
         if (($this->_bit_offset === 0) && (2 <= $this->_byte_offset) &&
             (substr($this->_data, $this->_byte_offset - 2, 3) === "\0\0\3")) {
             $this->_byte_offset++;
         }
     }        
     function getUI8() {
-        $this->skipEulationPrevention();
+        $this->skipEmulationPrevention();
         return parent::getUI8();
     }
     function getUIBit() {
-        $this->skipEulationPrevention();
+        $this->skipEmulationPrevention();
         return parent::getUIBit();
     }
     function getUIBitsEG() { // 0-th order Exp-Golomb
@@ -43,7 +43,7 @@ class IO_HEVC_Bit extends IO_Bit {
 
     private function getDatum() {
         parent::byteAlign();
-        $this->skipEulationPrevention();
+        $this->skipEmulationPrevention();
         return parent::getData(1);
     }
     function getData($length) {
