@@ -1,7 +1,7 @@
 <?php
 
 /*
-  IO_HEVC class
+  IO_HEVC class v1.6
   (c) 2017/09/14 yoya@awm.jp
   ref) https://www.itu.int/rec/T-REC-H.265
  */
