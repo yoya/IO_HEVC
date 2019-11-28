@@ -8,7 +8,7 @@ if (is_readable('vendor/autoload.php')) {
 
 $options = getopt("f:hvtd");
 
-if ((isset($options['f']) === false) || (is_readable($options['f']) === false)) {
+if ((isset($options['f']) === false) || (($options['f'] !== "-") && is_readable($options['f']) === false)) {
     fprintf(STDERR, "Usage: php hevcdump.php -f <hevc_file> [-htvd]\n");
     fprintf(STDERR, "ex) php hevcdump.php -f test.heic -h \n");
     fprintf(STDERR, "ex) php hevcdump.php -f test.heic -t \n");
@@ -16,6 +16,9 @@ if ((isset($options['f']) === false) || (is_readable($options['f']) === false)) 
 }
 
 $filename = $options['f'];
+if ($filename === "-") {
+    $filename = "php://stdin";
+}
 $hevcdata = file_get_contents($filename);
 
 $opts = array();
