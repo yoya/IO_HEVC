@@ -10,8 +10,8 @@ $options = getopt("f:hvtd");
 
 if ((isset($options['f']) === false) || (($options['f'] !== "-") && is_readable($options['f']) === false)) {
     fprintf(STDERR, "Usage: php hevcdump.php -f <hevc_file> [-htvd]\n");
-    fprintf(STDERR, "ex) php hevcdump.php -f test.heic -h \n");
-    fprintf(STDERR, "ex) php hevcdump.php -f test.heic -t \n");
+    fprintf(STDERR, "ex) php hevcdump.php -f test.265 -h \n");
+    fprintf(STDERR, "ex) php hevcdump.php -f test.265 -t \n");
     exit(1);
 }
 
